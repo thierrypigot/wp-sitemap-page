@@ -4,7 +4,7 @@ Donate link: https://www.infowebmaster.fr/dons.php
 Tags: sitemap, generator, page list, site map, html sitemap, sitemap generator, dynamic sitemap, seo
 Requires at least: 3.0
 Tested up to: 6.4
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 License: GPLv2 or later
 
 
@@ -100,6 +100,11 @@ If you want to add another language, feel free to [contact me](http://en.tonyarc
 
 
 == Changelog ==
+
+= 1.9.4 =
+Release date: 13 march 2024
+Add order to CPT.
+Filter args off Query to get the current custom post type.
 
 = 1.9.3 =
 Release date: 25 november 2023
