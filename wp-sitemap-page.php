@@ -3,7 +3,7 @@
 Plugin Name: WP Sitemap Page
 Plugin URI:  http://tonyarchambeau.com/
 Description: Add a sitemap on any page/post using the simple shortcode [wp_sitemap_page]
-Version:     1.9.3
+Version:     1.9.4
 Author:      Tony Archambeau
 Author URI:  http://tonyarchambeau.com/
 Text Domain: wp-sitemap-page
@@ -591,7 +591,7 @@ function wsp_wp_sitemap_page_func( $atts, $content=null ) {
 			$cpt = get_post_type_object( $only_cpt );
 			
 			if ( !empty($cpt) ) {
-				return wsp_return_content_type_cpt_items( $is_title_displayed, $display_nofollow, $cpt, $only_cpt, $wsp_exclude_pages, $sort );
+				return wsp_return_content_type_cpt_items( $is_title_displayed, $display_nofollow, $cpt, $only_cpt, $wsp_exclude_pages, $sort, $order );
 			}
 			
 			// check if it's a taxonomy
@@ -610,7 +610,7 @@ function wsp_wp_sitemap_page_func( $atts, $content=null ) {
 	
 	// List the PAGES (check if it should be exclude)
 	if ( empty(get_option('wsp_exclude_cpt_page')) ) {
-		$return .= wsp_return_content_type_page($is_title_displayed, $is_get_only_private, $display_nofollow, $wsp_exclude_pages, $sort);
+		$return .= wsp_return_content_type_page($is_title_displayed, $is_get_only_private, $display_nofollow, $wsp_exclude_pages, $sort, );
 	}
 	
 	// List the POSTS by CATEGORY (check if it should be exclude)
@@ -977,7 +977,7 @@ function wsp_return_content_type_cpt_lists( $is_title_displayed=true, $display_n
  * @param str $sort
  * @return str $return
  */
-function wsp_return_content_type_cpt_items( $is_title_displayed=true, $display_nofollow=false, $cpt='', $post_type='', $wsp_exclude_pages='', $sort=null ) {
+function wsp_return_content_type_cpt_items( $is_title_displayed=true, $display_nofollow=false, $cpt='', $post_type='', $wsp_exclude_pages='', $sort=null, $order=null ) {
 	
 	// init
 	$return = '';
@@ -1000,9 +1000,14 @@ function wsp_return_content_type_cpt_items( $is_title_displayed=true, $display_n
 	if ($sort!==null) {
 		$args['orderby'] = $sort;
 	}
+
+	// change the order order
+	if ($order!==null) {
+		$args['order'] = $order;
+	}
 	
 	// Query to get the current custom post type
-	$posts_cpt = get_posts( $args );
+	$posts_cpt = get_posts( apply_filters( 'content_type_cpt_items_args', $args ) );
 	
 	// display a nofollow attribute ?
 	$attr_nofollow = ($display_nofollow==true ? ' rel="nofollow"' : '');
