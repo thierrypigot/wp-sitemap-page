@@ -610,7 +610,7 @@ function wsp_wp_sitemap_page_func( $atts, $content=null ) {
 	
 	// List the PAGES (check if it should be exclude)
 	if ( empty(get_option('wsp_exclude_cpt_page')) ) {
-		$return .= wsp_return_content_type_page($is_title_displayed, $is_get_only_private, $display_nofollow, $wsp_exclude_pages, $sort, );
+		$return .= wsp_return_content_type_page($is_title_displayed, $is_get_only_private, $display_nofollow, $wsp_exclude_pages, $sort );
 	}
 	
 	// List the POSTS by CATEGORY (check if it should be exclude)
